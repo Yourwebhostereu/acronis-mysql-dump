@@ -1,26 +1,23 @@
-# Acronis MySQL restore script
-Use this script to create database dumps from backups. You can restore the backup using the script.
+# Acronis MySQL dump script
+Makes a 
 
 ## Requirements
-1. Your backup is created using [our documentation](https://support.yourwebhoster.eu/en-us/article/91-backup-mysql-using-acronis-cloud-backup).
+1. Your backup is created using [our documentation](https://support.yourwebhoster.eu/en-us/article/91-backup-mysql-using-acronis-cloud-backup) but with this repository instead.
 2. The MySQL data in the backup is not corrupted.
 
 ## How to install
 1. Run the code below.
-2. Follow [our documentation](https://support.yourwebhoster.eu/en-us/article/91-backup-mysql-using-acronis-cloud-backup).
+2. Configure /var/lib/Acrons/mysql/pre-command.sh as pre-command.
 
 ```
 cd /var/lib/Acronis/
-git clone https://github.com/Yourwebhostereu/acronis-mysql.git mysql
+git clone https://github.com/Yourwebhostereu/acronis-mysql-dump.git mysql
 ```
 
 ## How to restore a database
-[Check our documentation for a complete restore how-to](https://support.yourwebhoster.eu/en-us/article/100-restore-a-mysql-backup-from-acronis)
-1. Restore the contents of the mysql data directory to /tmp_mysql
-2. Run  `/var/lib/Acronis/mysql/dump.sh -d DATABASE_NAME`.
-3. A database dump is created in /tmp_mysql/DATABASE_NAME.sql
-4. Restore the database to your MySQL cluster.
-5. Once done, delete /tmp_mysql
+1. Restore the .sql/gz file to the server.
+2. Run gunzip *.sql.gz (replace * with the filename or let Linux do the magic if no other files are present).
+3. Run mysql -u username -p database_name < database_name.sql
 
 # FAQ
 ## Q: When should I use this script?

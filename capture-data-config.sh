@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 DIR="$(dirname "${BASH_SOURCE[0]}")"
 
 LOGFILE="$DIR/log/mysql_dump.log"
@@ -7,28 +6,22 @@ LOGFILE="$DIR/log/mysql_dump.log"
 MYSQL_USER=
 MYSQL_PASSWORD_PATH=
 
-MYSQL_FREEZE_LOCKFILE="$DIR/freeze_mysql.lock"
-MYSQL_OUTPUT_FILE="$DIR/freeze_mysql.out"
-
 # You can configure the following parameters. Please read the user's guide before editing the parameters.
 
-# MYSQL_FREEZE
-# 0 - don't lock mysql tables before backup.
-# 1 - lock mysql tables before backup.
-MYSQL_FREEZE=1
+# NICE
+# Set the bin and priority.
+nice_bin=`which nice`
+nice_priority=15
 
-# MYSQL_FREEZE_TIMEOUT
-# Specified in seconds.
-MYSQL_FREEZE_TIMEOUT=120
+# MYSQL
+mysql_bin=`which mysql`
 
-# MYSQL_FREEZE_SNAPSHOT_TIMEOUT
-# Specified in seconds.
-MYSQL_FREEZE_SNAPSHOT_TIMEOUT=10
+# MYSQLDUMP
+mysqldump_bin=`which mysqldump`
+mysqldump_parameters='--routines --opt'
 
-# MYSQL_FREEZE_ONLY_MYISAM
-# 0 - lock all tables before backup.
-# 1 - lock only MyISAM tables before backup.
-MYSQL_FREEZE_ONLY_MYISAM=0
+# WHERE TO STORE THE DATA
+backup_path="$DIR/backup"
 
 if [ -f /root/.my.cnf ]; then
     echo "$(date -Ins) - MySQL .my.cnf exists." >> "$LOGFILE"
@@ -43,6 +36,6 @@ fi
 echo "[client]
 user=$MYSQL_USER
 password=$MYSQL_PASSWORD
-" >> $DIR/conf/my_extra.cnf 
+" > $DIR/conf/my_extra.cnf 
 
 echo $DIR/conf/my_extra.cnf >> "$LOGFILE"
