@@ -1,5 +1,5 @@
 # Acronis MySQL dump script
-Makes a 
+Makes a mysql dump of all your databases.
 
 ## Requirements
 1. Your backup is created using [our documentation](https://support.yourwebhoster.eu/en-us/article/91-backup-mysql-using-acronis-cloud-backup) but with this repository instead.

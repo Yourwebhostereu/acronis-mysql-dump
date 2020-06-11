@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 DIR="$(dirname "${BASH_SOURCE[0]}")"
 
 source "$DIR"/capture-data-config.sh

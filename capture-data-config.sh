@@ -18,7 +18,7 @@ mysql_bin=`which mysql`
 
 # MYSQLDUMP
 mysqldump_bin=`which mysqldump`
-mysqldump_parameters='--routines --opt'
+mysqldump_parameters='--force --single-transaction --events --routines --opt'
 
 # WHERE TO STORE THE DATA
 backup_path="$DIR/backup"
